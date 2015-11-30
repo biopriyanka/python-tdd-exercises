@@ -2,8 +2,8 @@
 def reverse_list(l):
     """
     Reverses order of elements in list l.
-    """
-    return None
+    """      
+    return l[::-1]
 
 
 def test_reverse_list():
@@ -16,7 +16,8 @@ def reverse_string(s):
     """
     Reverses order of characters in string s.
     """
-    return None
+    
+    return s[::-1]
 
 
 def test_reverse_string():
@@ -30,7 +31,11 @@ def is_english_vowel(c):
     Returns True if c is an english vowel
     and False otherwise.
     """
-    return None
+    if c.lower() in ["a","e","i","o","u","y"]:    
+        return True
+    else:
+        return False
+  
 
 
 def test_is_english_vowel():
@@ -57,7 +62,11 @@ def count_num_vowels(s):
     """
     Returns the number of vowels in a string s.
     """
-    return None
+    count=0
+    for i in range(len(s)):
+        if is_english_vowel(s[i]):
+            count=count+1
+    return count
 
 
 def test_count_num_vowels():
@@ -78,8 +87,14 @@ def test_count_num_vowels():
 def histogram(l):
     """
     Converts a list of integers into a simple string histogram.
-    """
-    return None
+    """    
+    m=[]
+    for i in range(len(l)):
+        for j in range(l[i]):
+            m.append('#')
+        m.append('\n')
+    str=''.join(m[:len(m)-1])
+    return str
 
 
 def test_histogram():
@@ -93,7 +108,12 @@ def get_word_lengths(s):
     Returns a list of integers representing
     the word lengths in string s.
     """
-    return None
+    
+    li=[]
+    str=s.split(' ')
+    for i in range(len(str)):
+        li.append(len(str[i]))
+    return li
 
 
 def test_get_word_lengths():
@@ -108,7 +128,13 @@ def find_longest_word(s):
     Returns the longest word in string s.
     In case there are several, return the first.
     """
-    return None
+    li = get_word_lengths(s)
+    max=0
+    for i in range(len(li)):
+        if li[max] < li[i]:
+            max=i;
+    str=s.split(' ')
+    return str[max]
 
 
 def test_find_longest_word():
@@ -125,7 +151,11 @@ def validate_dna(s):
     Return True if the DNA string only contains characters
     a, c, t, or g (lower or uppercase). False otherwise.
     """
-    return None
+    for i in s:
+        if i in ["a","t","g","c","A","T","G","C"]:
+            return True
+        else:
+            return False
 
 
 def test_validate_dna():
@@ -141,7 +171,11 @@ def base_pair(c):
     of the base pair. If the base is not recognized,
     return 'unknown'.
     """
-    return None
+    dict = {'a': 't', 't': 'a', 'g': 'c', 'c': 'g'};
+    if c.lower() in dict.keys():    
+        return dict[c.lower()]
+    else:
+        return 'unknown'
 
 
 def test_base_pair():
