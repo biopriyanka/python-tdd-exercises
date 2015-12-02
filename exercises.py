@@ -281,7 +281,17 @@ def get_position_indices(triplet, dna):
     in a DNA sequence. We start counting from 0
     and jump by 3 characters from one position to the next.
     """
-    return None
+    li=[]
+    k=0
+    len1=int(len(dna)/3)
+    for i in range(len1):
+        li.append(dna[k:k+3])
+        k=k+3
+    mi=[]
+    for i in range(len(li)):
+        if triplet in li[i]:
+            mi.append(i)
+    return mi
 
 
 def test_get_position_indices():
@@ -300,8 +310,17 @@ def get_3mer_usage_chart(s):
     The list is alphabetically sorted by the name
     of the 3-mer.
     """
-    return None
-
+    d = {}
+    for i in range(len(s) - 2):
+        kmer = s[i:i+3]
+        if kmer in d:
+            d[kmer] += 1
+        else:
+            d[kmer] = 1
+    l = list(d.items())
+    l.sort() 
+    return l
+   
 
 def test_get_3mer_usage_chart():
     s = 'CCGGAAGAGCTTACTTAGGAAGAA'
@@ -331,7 +350,14 @@ def read_column(file_name, column_number):
     Reads column column_number from file file_name
     and returns the values as floats in a list.
     """
-    return None
+    l=[]
+    with open(file_name, 'r') as f:
+        for line in f:
+            words = line.split()
+            if len(words) > 0:
+                l.append(float(words[column_number - 1]))
+        line.split()[column_number - 1]
+    return l
 
 
 def test_read_column():
@@ -370,7 +396,20 @@ def character_statistics(file_name):
     Use the isalpha() method to figure out
     whether the character is in the alphabet.
     """
-    return None
+    d={}
+    with open(file_name, 'r') as f:
+        for c in f.read().lower():
+            if c.isalpha():
+                if c in d:
+                    d[c]+=1
+                else:
+                    d[c]=1
+    l = list(d.items())
+    l = sorted(l, key=lambda x: x[1], reverse = True)
+    most = l[0][0]
+    least= l[-1][0]
+    
+    return (most, least)
 
 
 def test_character_statistics():
@@ -403,7 +442,7 @@ With a bare bodkin? who would fardels bear,
 To grunt and sweat under a weary life,
 But that the dread of something after death,
 The undiscover'd country from whose bourn
-No traveller returns, puzzles the will
+No traveller returns, puzzzles the will
 And makes us rather bear those ills we have
 Than fly to others that we know not of?
 Thus conscience does make cowards of us all;
@@ -448,4 +487,5 @@ def pythagorean_triples(n):
 # ------------------------------------------------------------------------------
 
 def test_pythagorean_triples():
+    assert pythagorean_triples(20) == [(3, 4, 5), (6, 8, 10), (5, 12, 13), (9, 12, 15), (8, 15, 17), (12, 16, 20)]
     pass  # so far we do not test anything, check also test coverage
